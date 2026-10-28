@@ -29,7 +29,18 @@ const JobSchema = new mongoose.Schema(
 
         status: {
             type: String,
-            default: "pending", // 🔥 IMPORTANT
+            enum: [
+                "pending",
+                "approved",
+                "rejected",
+                "closed"
+            ],
+            default: "pending",
+        },
+
+        ownerId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
         },
 
 
