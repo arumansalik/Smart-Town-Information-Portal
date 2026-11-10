@@ -1,95 +1,45 @@
 "use client";
 
-import { useState } from "react";
-import { Search } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Bell, MapPin, Search, Store } from "lucide-react";
 
-function SearchOverlay({ onClose }: { onClose: () => void }) {
-    const [query, setQuery] = useState("");
-    const [filter, setFilter] = useState("all");
-
-    return (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-start justify-center pt-20">
-
-            <div className="bg-white w-[90%] max-w-2xl rounded-2xl shadow-xl p-6 animate-slideDown">
-
-                {/* HEADER */}
-                <div className="flex justify-between items-center mb-4">
-                    <h2 className="font-semibold text-lg">Search SmartTown</h2>
-                    <button onClick={onClose} className="text-gray-500">✕</button>
-                </div>
-
-                {/* SEARCH INPUT */}
-                <input
-                    type="text"
-                    placeholder="Search shops, jobs, buses..."
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    className="w-full border px-4 py-3 rounded-lg mb-4 outline-none focus:ring-2 focus:ring-blue-500"
-                />
-
-                {/* FILTERS */}
-                <div className="flex gap-2 mb-4 flex-wrap">
-                    {["all", "shops", "jobs", "bus", "hospital"].map((item) => (
-                        <button
-                            key={item}
-                            onClick={() => setFilter(item)}
-                            className={`px-4 py-1 rounded-full text-sm ${
-                                filter === item
-                                    ? "bg-blue-600 text-white"
-                                    : "bg-gray-100"
-                            }`}
-                        >
-                            {item}
-                        </button>
-                    ))}
-                </div>
-
-                {/* RESULTS */}
-                <div className="max-h-[300px] overflow-y-auto space-y-2">
-                    {/* Example result */}
-                    <div className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
-                        Sample Result ({filter})
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
+const links = [
+  ["Home", "/"],
+  ["Explore", "/tourism"],
+  ["Local shops", "/shops"],
+  ["Find work", "/jobs"],
+  ["Bus times", "/buses"],
+];
 
 export default function Navbar() {
-    const [openSearch, setOpenSearch] = useState(false);
+  const pathname = usePathname();
 
-    return (
-        <>
-            <nav className="w-full bg-white shadow-md px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+  return (
+    <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-[#f8faf8]/90 backdrop-blur-xl">
+      <div className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
+        <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="Namma Ooru home">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-emerald-800 text-lg font-bold text-white shadow-sm">ந</span>
+          <span className="min-w-0">
+            <span className="block truncate text-[15px] font-extrabold tracking-tight text-slate-900">namma ooru</span>
+            <span className="hidden text-[10px] font-semibold uppercase tracking-[.18em] text-slate-500 sm:block">your town, together</span>
+          </span>
+        </Link>
 
-                {/* LEFT - LOGO */}
-                <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-blue-600 rounded-lg"></div>
-                    <h1 className="font-bold text-lg">SmartTown</h1>
-                </div>
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+          {links.map(([label, href]) => {
+            const active = href === "/" ? pathname === href : pathname.startsWith(href);
+            return <Link key={href} href={href} className={`rounded-full px-4 py-2 text-[13px] font-semibold transition ${active ? "bg-emerald-50 text-emerald-900" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"}`}>{label}</Link>;
+          })}
+        </nav>
 
-                {/* CENTER - LINKS */}
-                <div className="hidden md:flex gap-6 font-medium">
-                    <a href="/">Home</a>
-                    <a href="/shops">Shops</a>
-                    <a href="/jobs">Jobs</a>
-                    <a href="/bus">Bus</a>
-                    <a href="/hospital">Hospital</a>
-                </div>
-
-                {/* RIGHT - SEARCH */}
-                <div
-                    onClick={() => setOpenSearch(true)}
-                    className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-xl cursor-pointer hover:bg-gray-200"
-                >
-                    <Search size={18} />
-                    <span className="text-sm text-gray-500">Search...</span>
-                </div>
-            </nav>
-
-            {/* SEARCH OVERLAY */}
-            {openSearch && <SearchOverlay onClose={() => setOpenSearch(false)} />}
-        </>
-    );
+        <div className="flex shrink-0 items-center gap-2">
+          <span className="hidden items-center gap-1.5 rounded-full bg-white px-3 py-2 text-xs font-semibold text-slate-600 ring-1 ring-slate-200 sm:flex"><MapPin size={14} className="text-emerald-700" />Thiruppathur</span>
+          <Link href="/search" aria-label="Search" className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-700 ring-1 ring-slate-200 transition hover:bg-slate-50"><Search size={18} /></Link>
+          <Link href="/business" aria-label="For local businesses" className="hidden h-10 w-10 items-center justify-center rounded-full bg-emerald-800 text-white transition hover:bg-emerald-900 sm:flex"><Store size={18} /></Link>
+          <Link href="/hospitals" aria-label="Emergency services" className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-50 text-rose-700 ring-1 ring-rose-100 transition hover:bg-rose-100"><Bell size={18} /></Link>
+        </div>
+      </div>
+    </header>
+  );
 }

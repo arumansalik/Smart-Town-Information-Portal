@@ -1,43 +1,27 @@
 "use client";
 
-import { Home, Store, Bus, Briefcase, Hospital } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BriefcaseBusiness, Compass, House, Menu, Store } from "lucide-react";
+
+const items = [
+  { label: "Home", href: "/", Icon: House },
+  { label: "Explore", href: "/tourism", Icon: Compass },
+  { label: "Shops", href: "/shops", Icon: Store },
+  { label: "Jobs", href: "/jobs", Icon: BriefcaseBusiness },
+  { label: "More", href: "/buses", Icon: Menu },
+];
 
 export default function BottomNav() {
-    const pathname = usePathname();
+  const pathname = usePathname();
 
-    const getClass = (path: string) =>
-        pathname === path ? "text-primary" : "text-text";
-
-    return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t flex justify-around py-2 z-50">
-
-            <Link href="/" className={`flex flex-col items-center text-xs ${getClass("/")}`}>
-                <Home size={20} />
-                Home
-            </Link>
-
-            <Link href="/shops" className={`flex flex-col items-center text-xs ${getClass("/shops")}`}>
-                <Store size={20} />
-                Shops
-            </Link>
-
-            <Link href="/buses" className={`flex flex-col items-center text-xs ${getClass("/buses")}`}>
-                <Bus size={20} />
-                Buses
-            </Link>
-
-            <Link href="/jobs" className={`flex flex-col items-center text-xs ${getClass("/jobs")}`}>
-                <Briefcase size={20} />
-                Jobs
-            </Link>
-
-            <Link href="/hospitals" className={`flex flex-col items-center text-xs ${getClass("/hospitals")}`}>
-                <Hospital size={20} />
-                Hospital
-            </Link>
-
-        </div>
-    );
+  return <nav className="mobile-nav" aria-label="Quick navigation">
+    {items.map(({ label, href, Icon }) => {
+      const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+      return <Link key={href} href={href} className={active ? "mobile-nav-link active" : "mobile-nav-link"}>
+        <Icon size={20} strokeWidth={active ? 2.4 : 1.9} />
+        <span>{label}</span>
+      </Link>;
+    })}
+  </nav>;
 }
