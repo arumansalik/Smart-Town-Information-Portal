@@ -1,49 +1,26 @@
-'use client';
-
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import BottomNav from "@/components/BottomNav";
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { usePathname } from "next/navigation";
-import { Poppins } from "next/font/google";
+import { Geist, Poppins } from "next/font/google";
+import type { Viewport } from "next";
+import AppChrome from "@/components/AppChrome";
 
-const geist = Geist({
-    subsets: ['latin'],
-    variable: '--font-sans',
-});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-poppins" });
 
-// 🔥 ADD POPPINS
-const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-poppins",
-});
+export const metadata = {
+  title: "Namma Ooru — your town, together",
+  description: "Local updates, shops, jobs, buses, emergency services and places to explore in your town.",
+  applicationName: "Namma Ooru",
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "Namma Ooru" },
+};
 
-export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#153d2c",
+};
 
-    const pathname = usePathname();
-
-    const isAdmin = pathname.startsWith("/admin");
-
-    return (
-        <html lang="en" className={cn(geist.variable, poppins.variable)}>
-        <body className="bg-bg text-text">
-
-        {/* 🔥 Hide in admin */}
-        {!isAdmin && <Navbar />}
-
-        <main className={!isAdmin ? "pb-20 px-4" : "p-5"}>
-            {children}
-        </main>
-
-        {!isAdmin && <BottomNav />}
-
-        </body>
-        </html>
-    );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en" className={`${geist.variable} ${poppins.variable}`}>
+    <body><AppChrome>{children}</AppChrome></body>
+  </html>;
 }
