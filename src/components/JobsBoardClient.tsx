@@ -103,7 +103,7 @@ export default function JobsBoardClient({
 
     const [sort, setSort] = useState<"newest" | "salary">("newest");
 
-    const [expandedId, setExpandedId] = useState("");
+
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -395,7 +395,6 @@ export default function JobsBoardClient({
 
                                     const saved = savedIds.includes(job._id);
 
-                                    const expanded = expandedId === job._id;
 
                                     const applyUrl = safeApplyUrl(job.applyLink);
 
@@ -469,11 +468,7 @@ export default function JobsBoardClient({
                         </span>
                                             </div>
 
-                                            {!expanded && job.description && (
-                                                <p className="job-preview">
-                                                    {job.description}
-                                                </p>
-                                            )}
+
 
                                             <div className="job-card-footer">
                         <span className="job-posted">
@@ -482,19 +477,12 @@ export default function JobsBoardClient({
                         </span>
 
                                                 <div>
-                                                    <button
-                                                        type="button"
+                                                    <Link
+                                                        href={`/jobs/${job._id}`}
                                                         className="job-details-button"
-                                                        onClick={() =>
-                                                            setExpandedId(
-                                                                expanded ? "" : job._id
-                                                            )
-                                                        }
                                                     >
-                                                        {expanded
-                                                            ? "Hide details"
-                                                            : "View details"}
-                                                    </button>
+                                                        View details
+                                                    </Link>
 
                                                     {applyUrl && (
                                                         <a
@@ -510,12 +498,7 @@ export default function JobsBoardClient({
                                                 </div>
                                             </div>
 
-                                            {expanded && (
-                                                <div className="job-description">
-                                                    {job.description ||
-                                                        "No additional description provided."}
-                                                </div>
-                                            )}
+
                                         </motion.article>
                                     );
                                 })}
