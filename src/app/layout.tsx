@@ -15,17 +15,16 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://nammatpr.in"),
 
   title: {
-    default: "Namma TPR | Local Information Portal",
+    default: "Namma TPR – Local Information Portal",
     template: "%s | Namma TPR",
   },
 
   description:
-      "Discover everything about Tiruppattur in one place. Find local shops, jobs, hospitals, bus timings, tourism destinations and essential community information.",
+      "Discover Tiruppattur with Namma TPR. Explore local shops, businesses, jobs, hospitals, bus timings, tourism and essential community information.",
 
   applicationName: "Namma TPR",
 
@@ -38,18 +37,13 @@ export const metadata: Metadata = {
     "Tiruppattur hospitals",
     "Tiruppattur bus timings",
     "Tourist places near Tiruppattur",
-    "Local businesses Tiruppattur",
+    "Local businesses in Tiruppattur",
   ],
 
-  alternates: {
-    canonical: "/",
-  },
-
   openGraph: {
-    title: "Namma TPR | Discover Your Town",
+    title: "Namma TPR – Discover Your Town",
     description:
-        "Explore local shops, jobs, hospitals, transportation and tourism in Tiruppattur.",
-    url: "https://nammatpr.in",
+        "Explore local shops, jobs, hospitals, transportation, tourism and community information in Tiruppattur.",
     siteName: "Namma TPR",
     locale: "en_IN",
     type: "website",
@@ -57,7 +51,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Namma TPR | Discover Your Town",
+    title: "Namma TPR – Discover Your Town",
     description:
         "Your digital guide to local information and services in Tiruppattur.",
   },
@@ -86,10 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html
-          lang="en"
-          className={`${geist.variable} ${poppins.variable}`}
-      >
+      <html lang="en" className={`${geist.variable} ${poppins.variable}`}>
       <body>
       <AppChrome>{children}</AppChrome>
       </body>
