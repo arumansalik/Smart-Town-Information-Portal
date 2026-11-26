@@ -2,6 +2,7 @@
 import "./globals.css";
 import { Geist, Poppins } from "next/font/google";
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import AppChrome from "@/components/AppChrome";
 
 const geist = Geist({
@@ -19,22 +20,13 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nammatpr.in"),
 
   title: {
-    default: "Namma TPR – Local Information Portal",
+    default:
+        "Namma TPR – Jobs, Shops & Local Services in Tiruppattur",
     template: "%s | Namma TPR",
   },
 
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      // { url: "/icon.png", type: "image/png" },
-    ],
-    // apple: [
-    //   { url: "/apple-icon.png", type: "image/png" },
-    // ],
-  },
-
   description:
-      "Discover Tiruppattur with Namma TPR. Explore local shops, businesses, jobs, hospitals, bus timings, tourism and essential community information.",
+      "Discover Tiruppattur with Namma TPR. Find local jobs, shops, businesses, hospitals, bus timings, tourism and essential community information.",
 
   applicationName: "Namma TPR",
 
@@ -42,32 +34,38 @@ export const metadata: Metadata = {
     "Namma TPR",
     "Tiruppattur",
     "Tiruppattur local information",
-    "Tiruppattur shops",
     "Jobs in Tiruppattur",
+    "Tiruppattur shops",
+    "Local businesses in Tiruppattur",
     "Tiruppattur hospitals",
     "Tiruppattur bus timings",
     "Tourist places near Tiruppattur",
-    "Local businesses in Tiruppattur",
   ],
 
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+    ],
+  },
 
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: "Namma TPR",
-    title: "Namma TPR | Your Town. All in One Place.",
+    title:
+        "Namma TPR – Jobs, Shops & Local Services in Tiruppattur",
     description:
-        "Discover local jobs, shops and services in Tiruppattur, Tamil Nadu.",
-    url: "https://nammatpr.in",
+        "Find local jobs, shops, businesses, hospitals, bus timings and tourism information in Tiruppattur, Tamil Nadu.",
+    url: "https://nammatpr.in/",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Namma TPR | Your Town. All in One Place.",
+    title:
+        "Namma TPR – Jobs, Shops & Local Services in Tiruppattur",
     description:
-        "Discover local jobs, shops and services in Tiruppattur, Tamil Nadu.",
+        "Find local jobs, shops, businesses, hospitals, bus timings and tourism information in Tiruppattur, Tamil Nadu.",
   },
-
 
   robots: {
     index: true,
@@ -90,7 +88,7 @@ export const viewport: Viewport = {
 export default function RootLayout({
                                      children,
                                    }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
       <html lang="en" className={`${geist.variable} ${poppins.variable}`}>

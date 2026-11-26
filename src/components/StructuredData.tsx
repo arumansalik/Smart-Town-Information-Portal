@@ -8,7 +8,7 @@ export default function StructuredData() {
             name: "Namma TPR",
             url: "https://nammatpr.in/",
             description:
-                "Discover local jobs, shops and services in Tiruppattur, Tamil Nadu.",
+                "Namma TPR is a local information portal for jobs, shops, businesses and services in Tiruppattur, Tamil Nadu.",
             areaServed: {
                 "@type": "City",
                 name: "Tiruppattur",
@@ -25,7 +25,7 @@ export default function StructuredData() {
             name: "Namma TPR",
             url: "https://nammatpr.in/",
             description:
-                "Your town. All in one place. Find local jobs, shops and services in Tiruppattur.",
+                "Find local jobs, shops, businesses, hospitals, bus timings and tourism information in Tiruppattur, Tamil Nadu.",
             publisher: {
                 "@id": "https://nammatpr.in/#organization",
             },
@@ -40,10 +40,7 @@ export default function StructuredData() {
                     key={index}
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(data).replace(
-                            /</g,
-                            "\\u003c"
-                        ),
+                        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
                     }}
                 />
             ))}
