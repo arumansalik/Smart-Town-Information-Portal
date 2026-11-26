@@ -40,21 +40,24 @@ export const metadata: Metadata = {
     "Local businesses in Tiruppattur",
   ],
 
+
   openGraph: {
-    title: "Namma TPR – Discover Your Town",
-    description:
-        "Explore local shops, jobs, hospitals, transportation, tourism and community information in Tiruppattur.",
-    siteName: "Namma TPR",
-    locale: "en_IN",
     type: "website",
+    locale: "en_IN",
+    siteName: "Namma TPR",
+    title: "Namma TPR | Your Town. All in One Place.",
+    description:
+        "Discover local jobs, shops and services in Tiruppattur, Tamil Nadu.",
+    url: "https://nammatpr.in",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Namma TPR – Discover Your Town",
+    title: "Namma TPR | Your Town. All in One Place.",
     description:
-        "Your digital guide to local information and services in Tiruppattur.",
+        "Discover local jobs, shops and services in Tiruppattur, Tamil Nadu.",
   },
+
 
   robots: {
     index: true,

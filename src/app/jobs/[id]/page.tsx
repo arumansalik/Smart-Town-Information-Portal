@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import mongoose from "mongoose";
 
-import connectDB from "@/lib/mongodb";
+import { connectDB } from "@/lib/db";
 import Job from "@/models/Job";
 
 type JobData = {
