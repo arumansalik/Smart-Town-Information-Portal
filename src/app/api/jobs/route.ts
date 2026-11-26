@@ -3,16 +3,13 @@ import { connectDB } from "@/lib/db";
 import Job from "@/models/Job";
 import { NextResponse } from "next/server";
 
-export async function GET(req: Request) {
+export async function GET() {
     try {
         await connectDB();
 
-        const { searchParams } = new URL(req.url);
-        const status = searchParams.get("status");
-
-        const query = status ? { status } : {};
-
-        const jobs = await Job.find(query)
+        const jobs = await Job.find({
+            status: "approved",
+        })
             .sort({ createdAt: -1 })
             .lean();
 
