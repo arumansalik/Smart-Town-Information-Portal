@@ -1,18 +1,22 @@
 
-import type { Metadata, Viewport } from "next";
 import "./globals.css";
-
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
-import SiteShell from "@/components/SiteShell";
+import { Geist, Poppins } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import AppChrome from "@/components/AppChrome";
 
 const geist = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.nammatpr.in"),
+  metadataBase: new URL("https://nammatpr.in"),
 
   title: {
     default: "Namma TPR | Local Information Portal",
@@ -61,6 +65,12 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Namma TPR",
+  },
 };
 
 export const viewport: Viewport = {
@@ -71,13 +81,16 @@ export const viewport: Viewport = {
 
 export default function RootLayout({
                                      children,
-                                   }: {
+                                   }: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-      <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body className="bg-bg text-text pb-16">
-      <SiteShell>{children}</SiteShell>
+      <html
+          lang="en"
+          className={`${geist.variable} ${poppins.variable}`}
+      >
+      <body>
+      <AppChrome>{children}</AppChrome>
       </body>
       </html>
   );
