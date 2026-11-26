@@ -15,6 +15,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nammatpr.in"),
 

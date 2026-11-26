@@ -1,61 +1,30 @@
-import mongoose from "mongoose";
 
-const JobSchema = new mongoose.Schema(
-    {
-        role: {
-            type: String,
-            required: true,
-            trim: true,
-        },
+import { connectDB } from "@/lib/db";
+import Job from "@/models/Job";
+import { NextResponse } from "next/server";
 
-        companyName: {
-            type: String,
-            required: true,
-        },
+export async function GET() {
+    try {
+        await connectDB();
 
-        description: {
-            type: String,
-            required: true,
-        },
+        const jobs = await Job.find({
+            status: "approved",
+        })
+            .sort({ createdAt: -1 })
+            .lean();
 
-        address: {
-            type: String,
-            required: true,
-        },
+        return NextResponse.json(jobs, {
+            status: 200,
+            headers: {
+                "Cache-Control": "no-store",
+            },
+        });
+    } catch (error) {
+        console.error("GET /api/jobs error:", error);
 
-        salary: {
-            type: String,
-        },
-
-        status: {
-            type: String,
-            enum: [
-                "pending",
-                "approved",
-                "rejected",
-                "closed"
-            ],
-            default: "pending",
-        },
-
-        ownerId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-        },
-
-
-        jobType: {
-            type: String,
-            enum: ["Full-Time", "Part-Time"],
-            default: "Full-Time",
-        },
-
-        applyLink: {
-            type: String,
-        },
-    },
-    { timestamps: true }
-);
-
-export default mongoose.models.Job ||
-mongoose.model("Job", JobSchema);
+        return NextResponse.json(
+            { message: "Unable to fetch jobs" },
+            { status: 500 }
+        );
+    }
+}
