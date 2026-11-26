@@ -18,19 +18,21 @@ export default function StructuredData() {
                 },
             },
         },
+
         {
             "@context": "https://schema.org",
             "@type": "WebSite",
             "@id": "https://nammatpr.in/#website",
             name: "Namma TPR",
+            alternateName: "nammatpr.in",
             url: "https://nammatpr.in/",
             description:
-                "Find local jobs, shops, businesses, hospitals, bus timings and tourism information in Tiruppattur, Tamil Nadu.",
+                "Namma TPR is the local information portal for Tiruppattur, Tamil Nadu. Find jobs, shops, businesses and essential town services.",
             publisher: {
                 "@id": "https://nammatpr.in/#organization",
             },
             inLanguage: "en-IN",
-        },
+        }
     ];
 
     return (
