@@ -12,7 +12,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nammatpr.in"),
+  metadataBase: new URL("https://www.nammatpr.in"),
 
   title: {
     default: "Namma TPR | Local Information Portal",
