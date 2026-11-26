@@ -23,6 +23,16 @@ export const metadata: Metadata = {
     template: "%s | Namma TPR",
   },
 
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      // { url: "/icon.png", type: "image/png" },
+    ],
+    // apple: [
+    //   { url: "/apple-icon.png", type: "image/png" },
+    // ],
+  },
+
   description:
       "Discover Tiruppattur with Namma TPR. Explore local shops, businesses, jobs, hospitals, bus timings, tourism and essential community information.",
 
