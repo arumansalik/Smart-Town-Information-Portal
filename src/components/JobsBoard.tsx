@@ -1,3 +1,4 @@
+
 import { connectDB } from "@/lib/db";
 import Job from "@/models/Job";
 import JobsBoardClient from "@/components/JobsBoardClient";
@@ -24,7 +25,48 @@ export default async function JobsBoard() {
           : "",
     }));
 
-    return <JobsBoardClient initialJobs={formattedJobs} />;
+    const jobsStructuredData = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": "https://nammatpr.in/jobs#webpage",
+      name: "Jobs in Tiruppattur",
+      description:
+          "Explore local job vacancies in Tiruppattur. Find full-time and part-time opportunities, company details and application information.",
+      url: "https://nammatpr.in/jobs",
+      isPartOf: {
+        "@id": "https://nammatpr.in/#website",
+      },
+      mainEntity: {
+        "@type": "ItemList",
+        name: "Available Jobs in Tiruppattur",
+        numberOfItems: formattedJobs.length,
+        itemListElement: formattedJobs.map((job, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Thing",
+            name: `${job.role} at ${job.companyName}`,
+            description: job.description,
+          },
+        })),
+      },
+    };
+
+    return (
+        <>
+          <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify(jobsStructuredData).replace(
+                    /</g,
+                    "\\u003c"
+                ),
+              }}
+          />
+
+          <JobsBoardClient initialJobs={formattedJobs} />
+        </>
+    );
   } catch (error) {
     console.error("Jobs server rendering error:", error);
 
